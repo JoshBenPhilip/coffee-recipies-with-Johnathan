@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useNavigate} from 'react-router-dom'
 
 export default function ContactForm() {
+  let navigate = useNavigate;
   const [formData, setFormData] = useState({});
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -25,7 +27,7 @@ export default function ContactForm() {
 
   const sendData = (e) => {
     e.preventDefault(); // do not refresh page
-    fetch(`$(process.env.REACT_API_ENDPOINT)/hot`, {
+    fetch(`https://sampleapis.com/api-list/coffee/hot`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,6 +37,7 @@ export default function ContactForm() {
     .then(res=> res.json())
     .then(data => console.log('Success:', data))
     .catch(err => console.error(err))
+    navigate(-1)
   };
 
   const setFormObject = (event) => {

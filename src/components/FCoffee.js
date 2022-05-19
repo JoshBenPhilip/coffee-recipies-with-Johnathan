@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
 
 function FCoffee({ firstName }) {
+  let params = useParams();
+  console.log()
   const [coffeeList, setCoffeeList] = useState();
   const [temperature, setTemperature] = useState('hot');
   useEffect(()=>{
-    fetch(`https://api.sampleapis.com/coffee/${temperature}`)
+    fetch(`https://api.sampleapis.com/coffee/${params.temperature}`)
       .then(response => response.json())
       .then(data => setCoffeeList(data))
       .catch(console.error);
@@ -18,7 +21,7 @@ function FCoffee({ firstName }) {
       {!coffeeList
         ? <h2>Loading...</h2>
         : <>
-            <h2>Coffees</h2>
+            <h2>Coffees {params.temperature}</h2>
             {coffeeList.map(coffee => {
               return <p key={coffee.id}>{coffee.title}</p>
             }
